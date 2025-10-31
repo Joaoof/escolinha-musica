@@ -42,6 +42,7 @@ import {
   Zap,
   Shield,
 } from "lucide-react"
+import { Inter } from "next/font/google"
 
 // --- Tipagens ---
 interface Student {
@@ -106,6 +107,8 @@ interface KPICardProps {
   subtitle?: string
 }
 
+const inter = Inter({ subsets: ['latin'] })
+
 function KPICard({ title, value, icon, trend, trendLabel, colorClass, delay, subtitle }: KPICardProps) {
   const isPositive = trend && trend > 0
   const isNegative = trend && trend < 0
@@ -115,7 +118,7 @@ function KPICard({ title, value, icon, trend, trendLabel, colorClass, delay, sub
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="relative p-6 rounded-xl bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50 hover:border-slate-600/50 transition-all duration-300 group overflow-hidden"
+      className="relative p-6 rounded-xl bg-linear-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50 hover:border-slate-600/50 transition-all duration-300 group overflow-hidden"
     >
       <div
         className={`absolute top-0 right-0 w-32 h-32 ${colorClass} opacity-5 blur-3xl group-hover:opacity-10 transition-opacity`}
@@ -169,12 +172,12 @@ function RevenueChart({ delay }: { delay: number }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="p-6 rounded-xl bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50"
+      className="p-6 rounded-xl bg-linear-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50"
     >
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-blue-400" />
+          <h3 className="text-xl font-serif text-white flex items-center gap-2">
+            <img src={"https://cdn-icons-png.flaticon.com/512/11245/11245316.png"} className="w-7 h-7 text-blue-400" />
             Evolução de Receita
           </h3>
           <p className="text-sm text-slate-400 mt-1">Últimos 6 meses - Receita vs Meta vs Despesas</p>
@@ -242,12 +245,12 @@ function StudentDistributionChart({ stats, delay }: { stats: DashboardMetrics; d
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="p-6 rounded-xl bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50"
+      className="p-6 rounded-xl bg-linear-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50"
     >
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <PieChartIcon className="w-5 h-5 text-purple-400" />
+          <h3 className="text-xl font-serif text-white flex items-center gap-2">
+            <img src={"https://cdn-icons-png.freepik.com/512/6607/6607659.png"} className="w-7 h-7 text-purple-400" />
             Distribuição de Alunos
           </h3>
           <p className="text-sm text-slate-400 mt-1">Por status de pagamento</p>
@@ -304,12 +307,12 @@ function PerformanceRadar({ stats, delay }: { stats: DashboardMetrics; delay: nu
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="p-6 rounded-xl bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50"
+      className="p-6 rounded-xl bg-linear-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50"
     >
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <Activity className="w-5 h-5 text-cyan-400" />
+          <h3 className="text-xl font-serif text-white flex items-center gap-2">
+            <img src={"https://cdn-icons-png.flaticon.com/512/1006/1006640.png"} className="w-7 h-7 text-cyan-400" />
             Radar de Performance
           </h3>
           <p className="text-sm text-slate-400 mt-1">Análise multidimensional</p>
@@ -348,12 +351,12 @@ function GrowthTrend({ delay }: { delay: number }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
-      className="p-6 rounded-xl bg-gradient-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50"
+      className="p-6 rounded-xl bg-linear-to-br from-slate-900/90 to-slate-800/90 border border-slate-700/50"
     >
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-emerald-400" />
+          <h3 className="text-xl font-serif text-white flex items-center gap-2">
+            <img src={"https://cdn-icons-png.flaticon.com/512/3281/3281306.png"} className="w-7 h-7 text-emerald-400" />
             Tendência de Crescimento
           </h3>
           <p className="text-sm text-slate-400 mt-1">Evolução da base de alunos</p>
@@ -460,7 +463,7 @@ function AlertBanner({ stats }: { stats: DashboardMetrics }) {
 
 // --- Componente Principal ---
 export function DashboardStats() {
-  const students: Student[] = useStudents() as Student[]
+  const students: Student[] = useStudents() as unknown as Student[]
 
   const stats: DashboardMetrics = useMemo(() => {
     const totalStudents = students.length
@@ -516,7 +519,7 @@ export function DashboardStats() {
   }, [students])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6 space-y-8">
+    <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 p-6 space-y-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -525,15 +528,15 @@ export function DashboardStats() {
         className="flex items-center justify-between pb-6 border-b border-slate-800"
       >
         <div>
-          <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">Dashboard Financeiro Executivo</h1>
-          <p className="text-slate-400 text-lg">
+          <h1 className="text-4xl font-serif text-white mb-2 tracking-tight">Dashboard Financeiro Executivo</h1>
+          <p className={`text-slate-400 text-lg ${inter.className}`}>
             Análise Completa de Performance •{" "}
             {new Date().toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" })}
           </p>
         </div>
         <div className="flex items-center gap-4">
           <div className="text-right">
-            <p className="text-sm text-slate-500">Base Total</p>
+            <p className={`text-sm text-slate-500 ${inter.className}`}> Base Total</p>
             <p className="text-2xl font-bold text-white">{stats.totalStudents}</p>
           </div>
           <div className="w-px h-12 bg-slate-700"></div>
@@ -542,13 +545,13 @@ export function DashboardStats() {
             <p className="text-2xl font-bold text-emerald-400">{formatK(stats.mrr)}</p>
           </div>
         </div>
-      </motion.div>
+      </motion.div >
 
       {/* Alert Banner */}
-      <AlertBanner stats={stats} />
+      < AlertBanner stats={stats} />
 
       {/* KPI Grid - Linha 1 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      < div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" >
         <KPICard
           title="Receita Mensal (MRR)"
           value={formatK(stats.mrr)}
@@ -587,10 +590,10 @@ export function DashboardStats() {
           colorClass=""
           delay={0.25}
         />
-      </div>
+      </div >
 
       {/* KPI Grid - Linha 2 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      < div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" >
         <KPICard
           title="Lifetime Value (LTV)"
           value={formatCurrency(stats.ltv)}
@@ -603,53 +606,54 @@ export function DashboardStats() {
         <KPICard
           title="CAC (Custo Aquisição)"
           value={formatCurrency(stats.cac)}
-          icon={<Zap className="w-6 h-6 text-yellow-400" />}
+          icon={<img src={"https://cdn-icons-png.flaticon.com/512/1783/1783849.png"} className="w-10 h-10 text-yellow-400" />}
           subtitle={`LTV/CAC: ${(stats.ltv / stats.cac).toFixed(1)}x`}
-          colorClass="bg-yellow-500"
+          colorClass=""
           delay={0.35}
         />
 
         <KPICard
           title="Pagamentos Atrasados"
           value={stats.overduePayments}
-          icon={<AlertTriangle className="w-6 h-6 text-red-400" />}
+          icon={<img src={"https://cdn-icons-png.flaticon.com/512/4564/4564998.png"} className="w-10 h-10 text-red-400" />}
           trend={-15}
           trendLabel={formatCurrency(stats.overdueRevenue)}
-          colorClass="bg-red-500"
+          colorClass=""
           delay={0.4}
         />
 
         <KPICard
           title="Taxa de Evasão (Churn)"
           value={`${stats.churnRate.toFixed(1)}%`}
-          icon={<Shield className="w-6 h-6 text-orange-400" />}
+          icon={<img src={"https://cdn-icons-png.flaticon.com/512/8777/8777581.png"} className="w-10 h-10 text-orange-400" />}
           trend={-2.3}
           trendLabel={`${stats.inactiveStudents} alunos inativos`}
-          colorClass="bg-orange-500"
+          colorClass=""
           delay={0.45}
         />
-      </div>
+      </div >
 
       {/* Charts Grid - Linha 1 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      < div className="grid grid-cols-1 lg:grid-cols-2 gap-6" >
         <RevenueChart delay={0.5} />
         <GrowthTrend delay={0.55} />
-      </div>
+      </div >
 
       {/* Charts Grid - Linha 2 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      < div className="grid grid-cols-1 lg:grid-cols-2 gap-6" >
         <StudentDistributionChart stats={stats} delay={0.6} />
         <PerformanceRadar stats={stats} delay={0.65} />
-      </div>
+      </div >
 
       {/* Footer Insights */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
+      < motion.div
+        initial={{ opacity: 0, y: 20 }
+        }
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.7 }}
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
       >
-        <div className="p-6 rounded-xl bg-gradient-to-br from-emerald-900/20 to-emerald-800/20 border border-emerald-700/30">
+        <div className="p-6 rounded-xl bg-linear-to-br from-emerald-900/20 to-emerald-800/20 border border-emerald-700/30">
           <div className="flex items-center gap-3 mb-3">
             <CheckCircle className="w-5 h-5 text-emerald-400" />
             <h4 className="text-sm font-bold text-emerald-300 uppercase tracking-wider">Pontos Fortes</h4>
@@ -661,7 +665,7 @@ export function DashboardStats() {
           </p>
         </div>
 
-        <div className="p-6 rounded-xl bg-gradient-to-br from-orange-900/20 to-orange-800/20 border border-orange-700/30">
+        <div className="p-6 rounded-xl bg-linear-to-br from-orange-900/20 to-orange-800/20 border border-orange-700/30">
           <div className="flex items-center gap-3 mb-3">
             <Clock className="w-5 h-5 text-orange-400" />
             <h4 className="text-sm font-bold text-orange-300 uppercase tracking-wider">Atenção Necessária</h4>
@@ -672,7 +676,7 @@ export function DashboardStats() {
           </p>
         </div>
 
-        <div className="p-6 rounded-xl bg-gradient-to-br from-blue-900/20 to-blue-800/20 border border-blue-700/30">
+        <div className="p-6 rounded-xl bg-linear-to-br from-blue-900/20 to-blue-800/20 border border-blue-700/30">
           <div className="flex items-center gap-3 mb-3">
             <Target className="w-5 h-5 text-blue-400" />
             <h4 className="text-sm font-bold text-blue-300 uppercase tracking-wider">Próxima Meta</h4>
@@ -680,7 +684,7 @@ export function DashboardStats() {
           <p className="text-white font-semibold mb-1">Atingir {formatK(stats.expectedRevenue * 1.15)}</p>
           <p className="text-sm text-slate-400">15% de crescimento no próximo trimestre</p>
         </div>
-      </motion.div>
-    </div>
+      </motion.div >
+    </div >
   )
 }
